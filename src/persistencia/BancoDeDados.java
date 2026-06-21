@@ -13,9 +13,9 @@ package persistencia;
 
                 try{
                     bd = DriverManager.getConnection(
-                        "jdbc:mysql://localhost:3306/bd_imobiliaria",
+                        "jdbc:mysql://localhost:xxxx/bd_imobiliaria",
 						"root",
-						"12152007"
+						"xxxxx"
                     );
 
                 } catch (SQLException e) {
