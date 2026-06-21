@@ -23,6 +23,7 @@ public class ContratoDAO {
         this.imovelDAO = new ImovelDAO();
     }
 
+    //CREATE
     public void create(Contrato contrato) throws SQLException {                                          
         String query = "INSERT INTO contrato (id_cliente, id_imovel, id_corretor, data_inicio, data_fim, comissao) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement st = this.bd.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
@@ -61,36 +62,6 @@ public class ContratoDAO {
     }
 
     //CONSULTA
-    public ArrayList<Contrato>findByDataInicio(String d) throws SQLException {
-        ArrayList<Contrato> lista = new ArrayList<>();
-        String query = """
-        SELECT * FROM contrato
-        WHERE  data_inicio LIKE ?
-        """;
-        try (PreparedStatement st = this.bd.prepareStatement(query)) {
-            st.setString(1, "%" + d + "%");
-            try (ResultSet res = st.executeQuery()) {
-                while(res.next()) {
-                    int id_contrato = res.getInt("id_contrato");
-                    int id_cliente = res.getInt("id_cliente");
-                    int id_imovel = res.getInt("id_imovel");
-                    int id_corretor = res.getInt("id_corretor");
-                    String data_inicio = res.getString("data_inicio");
-                    String data_fim = res.getString("data_fim");  
-                    double comissao = res.getDouble("comissao");
-
-                    Cliente cliente = clienteDAO.findById(id_cliente);
-                    Imovel imovel = imovelDAO.findById(id_imovel);
-                    Corretor corretor = corretorDAO.findById(id_corretor);
-
-                    Contrato contrato = new Contrato(id_contrato, cliente, imovel, corretor, data_inicio, data_fim, comissao);
-                    lista.add(contrato); 
-                }
-                return lista;
-            }
-        }
-    }
-
     public Contrato findById(int id_contrato) throws SQLException {
         String query = """
         SELECT * FROM contrato

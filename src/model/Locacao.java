@@ -61,7 +61,7 @@ public class Locacao {
     }
     public void setDataFim(String data_fim) {
         this.data_fim = data_fim;
-    }//teste
+    }
 
 
     @Override

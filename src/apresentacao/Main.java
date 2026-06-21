@@ -20,13 +20,13 @@ public class Main {
         Scanner tec = new Scanner(System.in);
         int res = 0;
 
-        do {
+        do {  
             
         System.out.println("Bem vindo(a) à Conecta Imobiliária");
         System.out.println("Selecione a opção que deseja realizar: ");
-        System.out.println("1. Cadastrar imóvel"); //pronta
-        System.out.println("2. Cadastrar cliente"); // pronta
-        System.out.println("3. Cadastrar corretor"); // pronta
+        System.out.println("1. Cadastrar imóvel"); 
+        System.out.println("2. Cadastrar cliente"); 
+        System.out.println("3. Cadastrar corretor");
         System.out.println("4. Contrato de anúncio");
         System.out.println("5. Listar imóveis");
         System.out.println("6. Listar clientes");
@@ -39,13 +39,13 @@ public class Main {
 
         ClienteDAO c = new ClienteDAO();
         CorretorDAO cor = new CorretorDAO();
-        ContratoDAO cont = new ContratoDAO();
+        ContratoDAO cont = new ContratoDAO();    // inicializando as classes DAO
         ImovelDAO i = new ImovelDAO();
         LocacaoDAO loc = new LocacaoDAO();
 
 
         if (res == 1) {
-            Cliente cliente = null;
+            Cliente cliente = null; // instanciando objeto
 
             System.out.println("O proprietário do imóvel já possui cadastro ? Digite 'sim' ou 'não'");
             String r = tec.nextLine();
@@ -53,7 +53,7 @@ public class Main {
             if (r.equalsIgnoreCase("sim")) {
                 System.out.println("Digite o CPF do cliente cadastrado:");
                 String cpf = tec.nextLine();
-                cliente = c.findByCpfCliente(cpf);
+                cliente = c.findByCpfCliente(cpf); // consulta o cliente pelo cpf
 
                 if (cliente != null) {
                     System.out.println("Cliente encontrado: " + cliente.getNome());             
@@ -64,7 +64,7 @@ public class Main {
 
                 System.out.println("Informe o CRECI do corretor responsável pelo imóvel:");
                 String creci = tec.nextLine();
-                Corretor corretor = cor.findByCreci(creci);
+                Corretor corretor = cor.findByCreci(creci); // consulta corretor pelo creci
                 if (corretor != null) {
                     System.out.println("Corretor encontrado: " + corretor.getNome());
                 } else {
@@ -74,7 +74,7 @@ public class Main {
                 System.out.println("Digite o endereço do imóvel:");
                 String endereco = tec.nextLine();
                 System.out.println("Digite o tipo de imóvel:");
-                String tipo = tec.nextLine();
+                String tipo = tec.nextLine();                                 // dados de entrada para o cadastrO do imovel
                 System.out.println("Digite uma descrição do imóvel:");
                 String descricao = tec.nextLine();
                 System.out.println("Digite a área do imóvel:");
@@ -87,8 +87,8 @@ public class Main {
                 int ano_construcao = tec.nextInt();
                 tec.nextLine(); 
 
-                Imovel imovel = new Imovel(cliente, corretor, endereco, tipo, descricao, area, valor_venda, valor_aluguel, ano_construcao);
-                i.create(imovel);
+                Imovel imovel = new Imovel(cliente, corretor, endereco, tipo, descricao, area, valor_venda, valor_aluguel, ano_construcao); 
+                i.create(imovel); // cadastro do imovel
 
                 System.out.println("Imóvel cadastrado com sucesso!\n");
             
@@ -102,7 +102,7 @@ public class Main {
             System.out.println("Digite o nome do cliente:");
             String nome = tec.nextLine();
             System.out.println("Digite o email do cliente:");
-            String email = tec.nextLine();
+            String email = tec.nextLine();                                  // dados de entrada para o cadastro de cliente
             System.out.println("Digite o telefone do cliente:");
             String tel = tec.nextLine();
             System.out.println("Digite a data de nascimento do cliente:");
@@ -113,7 +113,7 @@ public class Main {
             String endereco = tec.nextLine();
 
             Cliente cliente = new Cliente(nome, email, tel, data_nasc, cpf, endereco);
-            c.create(cliente);
+            c.create(cliente); // cadastro do cliente
 
             System.out.println("\nCliente cadastrado com sucesso!\n");
 
@@ -121,8 +121,8 @@ public class Main {
         // opção 3 de cadastrar corretor
         } else if (res==3) {
             System.out.println("Digite o nome do corretor:");
-            String nome = tec.nextLine();
-            System.out.println("Digite o email do corretor:");
+            String nome = tec.nextLine();                                       
+            System.out.println("Digite o email do corretor:");                    // dados de entrada para o cadastro de corretor
             String email = tec.nextLine();
             System.out.println("Digite o telefone do corretor:");
             String tel = tec.nextLine();
@@ -130,19 +130,19 @@ public class Main {
             String creci = tec.nextLine();
 
             Corretor corretor = new Corretor(nome, email, tel, creci);
-            cor.create(corretor);     
+            cor.create(corretor);  //cadastro do corretor
             
             System.out.println("\nCorretor cadastrado com sucesso!\n");
         
         
         // opção 4 de contrato    
         } else if (res == 4) {
-        Corretor corretor = null;
+        Corretor corretor = null;    // instanciando objetos 
         Cliente cliente = null;
 
         System.out.println("O cliente que deseja fazer o contrato, ja possui cadastro? Digite 'sim' ou 'não'");
         String r = tec.nextLine();
-        if (r.equalsIgnoreCase("sim")) {
+        if (r.equalsIgnoreCase("sim")) {                        //  consulta do cliente para contrato
             System.out.println("Digite o CPF do cliente cadastrado:");
             String cpf = tec.nextLine();
             cliente = c.findByCpfCliente(cpf);
@@ -154,7 +154,7 @@ public class Main {
             }
         }
         
-        System.out.println("O imovel que fará parte do contrato ja esta cadastrado? Digite 'sim' ou 'não'" );
+        System.out.println("O imovel que fará parte do contrato ja esta cadastrado? Digite 'sim' ou 'não'" );  // consulta do imovel para cntrato
         Imovel imovel = null;
         r = tec.nextLine();
         if (r.equalsIgnoreCase("sim")) {
@@ -170,7 +170,7 @@ public class Main {
                 }
             }
             
-            System.out.println("\nInsira a data de início do contrato:");
+            System.out.println("\nInsira a data de início do contrato:");  // dados de entrada para realizar o contrato
             tec.nextLine();
             String dataInicio = tec.nextLine();
             System.out.println("Digite o prazo final do contrato: ");
@@ -179,25 +179,26 @@ public class Main {
             double comissao = tec.nextDouble();
 
             Contrato contrato = new Contrato(cliente, imovel, corretor, dataInicio, dataFinal, comissao);
-            cont.create(contrato);
+            cont.create(contrato); // criacao do contrato
 
             System.out.println("\nContrato criado com sucesso!\n");
         
         
-        // opção 5
+        // opção 5 de Listar imóveis
+
         } else if (res == 5) {
-            System.out.println("\nLista de imóveis: \n");
+            System.out.println("\nLista de imóveis: \n");   
             ArrayList<Imovel> lista = i.getAll();
 
             if (lista.isEmpty()) {
-                System.out.println("Nenhum imóvel cadastrado.");
+                System.out.println("Nenhum imóvel cadastrado.");  
             } else {
                 for (Imovel imovel : lista) {
                     System.out.println(imovel);
                 }
             }
 
-            System.out.println("\nDeseja fazer alguma alteração? Digite 'sim' ou 'não'");
+            System.out.println("\nDeseja fazer alguma alteração? Digite 'sim' ou 'não'");  // manipulacao dos imoveis
             String r = tec.nextLine();
 
             if (r.equalsIgnoreCase("sim")) {
@@ -209,7 +210,7 @@ public class Main {
                 System.out.println("Digite o ID do imóvel");
                 int id_imovel = tec.nextInt();
                 tec.nextLine(); 
-                Imovel imovel = i.findById(id_imovel);
+                Imovel imovel = i.findById(id_imovel); // consulta pelo id
 
                 if (imovel == null) {
                     System.out.println("\nImóvel não encontrado.\n");
@@ -251,7 +252,7 @@ public class Main {
             }
         
 
-        // opção 6
+        // opção 6 de listar clientes
         } else if(res == 6) {
             System.out.println("\nLista de clientes:\n");
             ArrayList<Cliente> lista = c.getAll();
@@ -264,18 +265,18 @@ public class Main {
                 }
             }
             
-            System.out.println("\nDeseja fazer alguma alteração? Digite 'sim' ou 'não'");
+            System.out.println("\nDeseja fazer alguma alteração? Digite 'sim' ou 'não'"); // manipulacao de clientes
             String r = tec.nextLine();     
             if (r.equalsIgnoreCase("sim")) {
                 System.out.println("\nEscolha a opção que deseja realizar:");
-                System.out.println("1. Editar cadastro");                                   ///teste de vresões
+                System.out.println("1. Editar cadastro");                                  
                 System.out.println("2. Deletar cadastro");
                 res = tec.nextInt();
                 tec.nextLine(); 
                 System.out.println("Digite o ID do cliente");
                 int id_cliente = tec.nextInt();
                 tec.nextLine(); 
-                Cliente cliente = c.findById(id_cliente);
+                Cliente cliente = c.findById(id_cliente); // consulta pelo id
                 if (cliente == null) {
                     System.out.println("Cliente não encontrado.");
                 
@@ -313,7 +314,7 @@ public class Main {
             }
         
         
-        // opção 7
+        // opção 7 de listar corretores
         } else if(res == 7) {
             System.out.println("\nLista de corretores:\n");
             ArrayList<Corretor> lista = cor.getAll();              
@@ -322,7 +323,7 @@ public class Main {
             }
 
 
-        // opção 8
+        // opção 8 de listar contratos
         } else if(res == 8) {
             System.out.println("\nLista de contratos:\n");
             ArrayList<Contrato> listaContratos = cont.getAll();
@@ -334,7 +335,7 @@ public class Main {
                     System.out.println(contrato);
                 }
             
-            System.out.println("\nDeseja fazer alguma alteração? Digite 'sim' ou 'não'");
+            System.out.println("\nDeseja fazer alguma alteração? Digite 'sim' ou 'não'"); // manipulacao de contratos
             String r = tec.nextLine();     
             if (r.equalsIgnoreCase("sim")) {
                 System.out.println("\nEscolha a opção que deseja realizar:");
@@ -345,7 +346,7 @@ public class Main {
                 System.out.println("Digite o ID do contrato");
                 int id_contrato = tec.nextInt();
                 tec.nextLine(); 
-                Contrato contrato = cont.findById(id_contrato);
+                Contrato contrato = cont.findById(id_contrato);  // consulta pelo id
                 if (contrato == null) {
                     System.out.println("Contrato não encontrado.");
                 
@@ -375,7 +376,7 @@ public class Main {
         }
 
 
-            // opção 9
+            // opção 9  de locacao
         } else if(res == 9) {
             System.out.println("O cliente que deseja fazer a locação já possui cadastro? Digite 'sim' ou 'não: ");
             Cliente cliente = null;

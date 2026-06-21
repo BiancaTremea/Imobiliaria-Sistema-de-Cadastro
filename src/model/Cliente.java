@@ -15,7 +15,7 @@ public class Cliente extends Usuario {
         this.id_cliente = id_cliente;
     }
     
-    public Cliente( String nome_cliente, String email_cliente, String tel_cliente, String data_nasc, String cpf, String endereco) { // CONSTRUTOR SEM ID
+    public Cliente( String nome_cliente, String email_cliente, String tel_cliente, String data_nasc, String cpf, String endereco) { // CONSTRUTOR SEM ID  (para novos registros)
         super(nome_cliente, email_cliente, tel_cliente);
         this.data_nasc = data_nasc;
         this.cpf = cpf;

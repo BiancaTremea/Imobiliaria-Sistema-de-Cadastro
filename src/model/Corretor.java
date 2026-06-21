@@ -12,7 +12,7 @@ package model;
         this.id_corretor = id_corretor;  
     }
     
-    public Corretor(String nome_corretor, String email_corretor, String tel_corretor, String creci){ //CONSTRUTOR SEM ID
+    public Corretor(String nome_corretor, String email_corretor, String tel_corretor, String creci){ //CONSTRUTOR SEM ID  (para novos registros)
         super(nome_corretor,email_corretor, tel_corretor);
         this.creci = creci;
     }

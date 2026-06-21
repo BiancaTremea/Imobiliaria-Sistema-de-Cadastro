@@ -20,6 +20,7 @@ public class ImovelDAO {
         this.corretorDAO = new CorretorDAO();
     }
 
+    //CREATE
     public void create(Imovel imovel) throws SQLException {
         String query = "INSERT INTO imovel (id_cliente, id_corretor, endereco, tipo, descricao, area, valor_venda, valor_aluguel, ano_construcao) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement st = this.bd.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
@@ -66,45 +67,6 @@ public class ImovelDAO {
     }
 
     //READ
-    public ArrayList<Imovel>findByTipoLike(String t ) throws SQLException {
-        ArrayList<Imovel> lista = new ArrayList<>();
-        String query = """
-        SELECT id_imovel, id_cliente, id_corretor, endereco, tipo, descricao, area, valor_venda, valor_aluguel, ano_construcao
-        FROM imovel
-        WHERE tipo LIKE ?
-        """;
-
-        try (PreparedStatement st = this.bd.prepareStatement(query)) {
-            st.setString(1, "%" + t + "%");
-            try (ResultSet res = st.executeQuery()) {
-                while(res.next()) {
-                    int id_imovel = res.getInt("id_imovel");
-                    int id_cliente = res.getInt("id_cliente");
-                    int id_corretor = res.getInt("id_corretor");
-                    String endereco= res.getString("endereco");                     
-                    String tipo = res.getString("tipo");
-                    String descricao= res.getString("descricao");
-                    double area = res.getDouble("area");
-                    double valor_venda = res.getDouble("valor_venda");
-                    double valor_aluguel = res.getDouble("valor_aluguel");
-                    int ano_construcao = res.getInt("ano_construcao");
-                    
-                    Cliente cliente = clienteDAO.findById(id_cliente);
-                    Corretor corretor = corretorDAO.findById(id_corretor);
-                    
-                    Imovel imovel = new Imovel(id_imovel, cliente, corretor, endereco, tipo, descricao, area, valor_venda, valor_aluguel, ano_construcao);
-                    lista.add(imovel);
-                }
-            } 
-        } catch (SQLException e) {
-            System.err.println("Erro ao buscar imóveis: " + e.getMessage()); //025.321.654-85   //
-            //
-            throw e;
-        }//         
-        return lista;
-    }
-
-
     public Imovel findById(int idImovel) throws SQLException {
         String query = """
         SELECT * FROM Imovel
@@ -135,7 +97,7 @@ public class ImovelDAO {
         }
     }
             
-    
+    //DELETE
     public void delete(Imovel imovel) throws SQLException {
         String query  = """
         DELETE FROM imovel
@@ -147,6 +109,7 @@ public class ImovelDAO {
         }
     }
 
+    // LISTA GERAL
     public ArrayList<Imovel> getAll() throws SQLException {
 		ArrayList<Imovel> lista = new ArrayList<>();
 		String query = "SELECT id_imovel, id_cliente, id_corretor, endereco, tipo, descricao, area, valor_venda, valor_aluguel, ano_construcao FROM imovel";

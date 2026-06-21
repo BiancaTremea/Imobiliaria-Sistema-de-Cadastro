@@ -14,6 +14,7 @@ public class ClienteDAO{
         this.bd = BancoDeDados.getBd();
     }
 
+    //CREATE
     public void create(Cliente cliente) throws SQLException {
         String query = "INSERT INTO cliente (nome_cliente, email, tel, data_nasc, cpf, endereco) VALUES(?, ?, ?, ?, ?, ? )";
         try (PreparedStatement st = this.bd.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
@@ -56,32 +57,7 @@ public class ClienteDAO{
         }
     }
 
-// READ/CONSULTA
-    public ArrayList<Cliente>findByNomeLike(String n) throws SQLException {
-        ArrayList<Cliente> lista = new ArrayList<>();
-        String query = """
-        SELECT * FROM cliente
-        WHERE nome_cliente LIKE ?
-        """;
-        try (PreparedStatement st = this.bd.prepareStatement(query)) {
-            st.setString(1, "%" + n + "%");
-            try (ResultSet res = st.executeQuery()) {
-                while(res.next()) {
-                    int id_cliente = res.getInt("id_cliente");
-                    String nome_cliente = res.getString("nome_cliente");
-                    String email = res.getString("email");
-                    String tel = res.getString("tel");
-                    String data_nasc = res.getString("data_nasc");
-                    String cpf = res.getString("cpf");
-                    String endereco = res.getString("endereco");
-                    Cliente cliente = new Cliente(id_cliente, nome_cliente, email, tel, data_nasc, cpf, endereco);
-                    lista.add(cliente);
-                }
-                return lista;
-            }
-        }
-    }
-
+    // READ/CONSULTA
     public Cliente findById(int id_cliente) throws SQLException {
         String query = """
         SELECT * FROM cliente 

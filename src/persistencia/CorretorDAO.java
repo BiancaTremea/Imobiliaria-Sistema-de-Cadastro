@@ -14,6 +14,7 @@ public class CorretorDAO{
         this.bd = BancoDeDados.getBd();
     }
 
+    //CREATE
     public void create (Corretor corretor) throws SQLException {
         String query = "INSERT INTO corretor (nome_corretor, email, tel, creci) VALUES(?, ?, ?, ?)";
         try (PreparedStatement st = this.bd.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
@@ -75,30 +76,6 @@ public class CorretorDAO{
             }
         }
     }
-
-    public ArrayList<Corretor>findByEmail(String n) throws SQLException {
-        ArrayList<Corretor> lista = new ArrayList<>();
-        String query = """
-        SELECT * FROM corretor
-        WHERE email LIKE ?
-        """;
-
-        try (PreparedStatement st = this.bd.prepareStatement(query)) {
-            st.setString(1, "%" + n + "%");
-            try (ResultSet res = st.executeQuery()) {
-                while(res.next()) {
-                    int id_corretor = res.getInt("id_corretor");
-                    String nome = res.getString("nome_corretor");
-                    String email = res.getString("email");
-                    String tel = res.getString("tel");
-                    String creci = res.getString("creci");
-                    Corretor corretor = new Corretor(id_corretor, nome, email, tel, creci);
-                    lista.add(corretor);
-                }
-                return lista;
-            }
-        }
-    }
     
     public Corretor findById(int id_corretor) throws SQLException {
         String query = """
@@ -125,7 +102,7 @@ public class CorretorDAO{
     }
 
 
-    //DELTE
+    //DELETE
     public void delete(Corretor corretor) throws SQLException {
         String query  = """
         DELETE FROM corretor

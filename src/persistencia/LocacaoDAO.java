@@ -20,6 +20,7 @@ public class LocacaoDAO {
         this.imovelDAO = new ImovelDAO();            
     }
 
+    //CREATE
     public void create(Locacao locacao) throws SQLException {
         String query = "INSERT INTO locacao (id_cliente, id_imovel, data_inicio, data_fim) VALUES (?, ?, ?, ?)";
         try (PreparedStatement st = this.bd.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
@@ -40,50 +41,7 @@ public class LocacaoDAO {
         }
     }
 
-    //UPDATE
-    public void update (Locacao locacao) throws SQLException {
-        String query = """
-        UPDATE locacao
-        SET data_inicio = ?, data_fim = ?
-        WHERE id_locacao = ?
-        """;
-
-        try (PreparedStatement st = bd.prepareStatement(query)) {
-            st.setString(1, locacao.getDataInicio());
-            st.setString(2, locacao.getDataFim());
-            st.executeUpdate();
-        }
-    }
-
-    //READ
-    public ArrayList<Locacao>findByDataInicioLike(String d) throws SQLException {
-        ArrayList<Locacao> lista = new ArrayList<>();
-        String query = """
-        SELECT * FROM locacao
-        WHERE data_inicio LIKE ?
-        """;
-
-        try (PreparedStatement st = bd.prepareStatement(query)) {
-            st.setString(1, "%" + d + "%");
-            try (ResultSet res = st.executeQuery()) {
-                while(res.next()) {
-                    int id_locacao = res.getInt("id_locacao");
-                    int id_cliente = res.getInt("id_cliente");
-                    int id_imovel = res.getInt("id_imovel");
-                    String data_inicio = res.getString("data_inicio");
-                    String data_fim = res.getString("data_fim");
-
-                    Cliente cliente = clienteDAO.findById(id_cliente);
-                    Imovel imovel = imovelDAO.findById(id_imovel);
-
-                    Locacao locacao = new Locacao(id_locacao, cliente, imovel, data_inicio, data_fim);
-                    lista.add(locacao);
-                }
-                return lista;
-            }
-        }
-    }
-
+    // DELETE
     public void delete(Locacao locacao) throws SQLException {
         String query  = """
         DELETE FROM locacao
@@ -95,6 +53,7 @@ public class LocacaoDAO {
         }
     }
 
+    // LISTA GERAL
     public ArrayList<Locacao> getAll() throws SQLException {
         ArrayList<Locacao> listaContratos = new ArrayList<>();
         String query = "SELECT id_cliente, id_imovel, data_inicio, data_fim, FROM locacao";

@@ -15,7 +15,7 @@ package persistencia;
                     bd = DriverManager.getConnection(
                         "jdbc:mysql://localhost:3306/bd_imobiliaria",
 						"root",
-						"Bianca!060907"
+						"12152007"
                     );
 
                 } catch (SQLException e) {
@@ -23,9 +23,8 @@ package persistencia;
                     System.exit(1);
                 }
             }
-            return bd;//teste
+            return bd;
 
         }
-    }                                //SEM ALTERAÕES.//
-
+    }                                
 
